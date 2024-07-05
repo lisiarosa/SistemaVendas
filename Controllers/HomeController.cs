@@ -14,8 +14,16 @@ namespace SistemaVendas.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(LoginModel login)
+        {
+            bool loginOk = login.ValidarLogin();
+
             return View();
         }
         public IActionResult Index()
