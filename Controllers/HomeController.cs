@@ -15,6 +15,13 @@ namespace SistemaVendas.Controllers
         }
 
         [HttpGet]
+        public IActionResult Menu()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -22,8 +29,18 @@ namespace SistemaVendas.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel login)
         {
-            bool loginOk = login.ValidarLogin();
-
+            if (ModelState.IsValid)
+            {
+                bool loginOk = login.ValidarLogin();
+                if (loginOk) 
+                {
+                    RedirectToAction("Menu");
+                }
+                else
+                {
+                    TempData["ErroLogin"] = "E-mail ou Senha são inválidos!";
+                }
+            }
             return View();
         }
         public IActionResult Index()
